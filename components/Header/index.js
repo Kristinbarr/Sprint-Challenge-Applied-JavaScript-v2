@@ -9,7 +9,17 @@
 //  </div >
 // And add it to the DOM in the .headerContainer component
 
-function Header() {
+axios
+  .get(
+    `http://dataservice.accuweather.com/currentconditions/v1/347629?apikey=${APIkey}`
+  )
+  .then((weather) => {
+    currentTemp = weather.data[0].Temperature.Imperial.Value
+    conditions = weather.data[0].WeatherText
+    Header(currentTemp, conditions)
+  })
+
+  function Header(currentTemp, conditions) {
 
   const headerContainer = document.querySelector('.header-container')
   const header = document.createElement('div')
@@ -21,9 +31,9 @@ function Header() {
   date.classList.add('date')
   temp.classList.add('temp')
 
-  date.textContent = 'SMARCH 28, 2019'
+  date.textContent = 'JULY 12, 2019'
   title.textContent = "Lambda Times"
-  temp.textContent = '98°'
+  temp.textContent = `${currentTemp}°F ${conditions.toUpperCase()}`
 
   headerContainer.appendChild(header)
   header.appendChild(date)
@@ -32,5 +42,3 @@ function Header() {
 
   return header
 }
-
-Header()
