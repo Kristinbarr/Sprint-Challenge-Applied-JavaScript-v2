@@ -21,10 +21,32 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
   })
 
 
-  function TabCreator(topic){
-    const tab = document.createElement('div')
-    tab.classList.add('tab')
-    tab.textContent = `${topic}`
+function TabCreator(topic){
 
-    return tab
+  const tab = document.createElement('div')
+
+  if (topic === 'node.js') {
+    topic = 'node'
   }
+
+  tab.classList.add('tab')
+  tab.dataset.tab = topic
+  tab.textContent = `${topic}`
+
+  tab.addEventListener('click', () => selectTab(tab))
+
+  return tab
+}
+
+function selectTab(tab) {
+
+  const tabs = document.querySelectorAll('.tab')
+  const cards = document.querySelectorAll('.card')
+
+  tabs.forEach((tab) => tab.classList.remove('active-tab'))
+  cards.forEach((card) => card.style.display = 'none')
+
+  tab.classList.add('active-tab')
+  Array.from(cards).filter((card) => card.dataset.tab === tab.dataset.tab)
+  .forEach((card) => card.style.display = 'flex')
+}

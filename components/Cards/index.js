@@ -20,40 +20,43 @@
 
 const cardsContainer = document.querySelector('.cards-container')
 
-axios.get('https://lambda-times-backend.herokuapp.com/articles')
-  .then(data => {
+axios
+  .get('https://lambda-times-backend.herokuapp.com/articles')
+  .then((data) => {
     const articlesObj = data.data.articles
     for (let topic in articlesObj) {
-      articlesObj[topic].forEach(topic => {
-        cardsContainer.appendChild(CardCreator(topic))
+      articlesObj[topic].forEach((article) => {
+        cardsContainer.appendChild(CardCreator(article, topic))
       })
     }
   })
+  .catch((error) => {
+    console.log('something went wrong >_<', error)
+  })
 
+function CardCreator(article, topic) {
 
-  function CardCreator(article) {
+  const card = document.createElement('div')
+  const headline = document.createElement('div')
+  const authorContainer = document.createElement('div')
+  const imgContainer = document.createElement('div')
+  const img = document.createElement('img')
+  const authorName = document.createElement('span')
 
-    const card = document.createElement('div')
-    const headline = document.createElement('div')
-    const authorContainer = document.createElement('div')
-    const imgContainer = document.createElement('div')
-    const img = document.createElement('img')
-    const authorName = document.createElement('span')
+  card.classList.add('card')
+  headline.classList.add('headline')
+  authorContainer.classList.add('author')
+  imgContainer.classList.add('img-container')
+  card.dataset.tab = topic
+  headline.textContent = `${article.headline}`
+  img.src = `${article.authorPhoto}`
+  authorName.textContent = `By ${article.authorName}`
 
-    card.classList.add('card')
-    headline.classList.add('headline')
-    authorContainer.classList.add('author')
-    imgContainer.classList.add('img-container')
+  card.appendChild(headline)
+  card.appendChild(authorContainer)
+  authorContainer.appendChild(imgContainer)
+  imgContainer.appendChild(img)
+  authorContainer.appendChild(authorName)
 
-    headline.textContent = `${article.headline}`
-    img.src = `${article.authorPhoto}`
-    authorName.textContent = `By ${article.authorName}`
-
-    card.appendChild(headline)
-    card.appendChild(authorContainer)
-    authorContainer.appendChild(imgContainer)
-    imgContainer.appendChild(img)
-    authorContainer.appendChild(authorName)
-
-    return card
-  }
+  return card
+}
