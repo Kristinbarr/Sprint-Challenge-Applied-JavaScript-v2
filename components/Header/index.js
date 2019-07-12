@@ -1,6 +1,6 @@
 // STEP 1: Create a header component.
 // -----------------------
-// Using a function create the component you see below:
+// Using a function to create the component you see below:
 //
 //  <div class="header">
 //    <span class="date">SMARCH 28, 2019</span>
@@ -9,4 +9,28 @@
 //  </div >
 // And add it to the DOM in the .headerContainer component
 
-function Header() {}
+function Header() {
+
+  const headerContainer = document.querySelector('.header-container')
+  const header = document.createElement('div')
+  const date = document.createElement('span')
+  const title = document.createElement('h1')
+  const temp = document.createElement('span')
+
+  header.classList.add('header')
+  date.classList.add('date')
+  temp.classList.add('temp')
+
+  date.textContent = 'SMARCH 28, 2019'
+  title.textContent = "Lambda Times"
+  temp.textContent = '98°'
+
+  headerContainer.appendChild(header)
+  header.appendChild(date)
+  header.appendChild(title)
+  header.appendChild(temp)
+
+  return header
+}
+
+Header()
