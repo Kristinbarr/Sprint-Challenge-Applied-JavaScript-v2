@@ -21,6 +21,22 @@ axios
 
   function Header(currentTemp, conditions) {
 
+  const curDate = new Date()
+  const month = {
+    0: 'JAN',
+    1: 'FEB',
+    2: 'MAR',
+    3: 'APR',
+    4: 'MAY',
+    5: 'JUN',
+    6: 'JUL',
+    7: 'AUG',
+    8: 'SEP',
+    9: 'OCT',
+    10: 'NOV',
+    11: 'DEC'
+  }
+
   const headerContainer = document.querySelector('.header-container')
   const header = document.createElement('div')
   const date = document.createElement('span')
@@ -31,7 +47,7 @@ axios
   date.classList.add('date')
   temp.classList.add('temp')
 
-  date.textContent = 'JULY 12, 2019'
+  date.textContent = `${month[curDate.getMonth()]} ${curDate.getDate()}, ${curDate.getFullYear()}`
   title.textContent = "Lambda Times"
   temp.textContent = `${currentTemp}°F ${conditions.toUpperCase()}`
 
