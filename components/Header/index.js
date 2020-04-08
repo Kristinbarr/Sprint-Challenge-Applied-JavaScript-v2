@@ -19,7 +19,7 @@ axios
     Header(currentTemp, conditions)
   })
 
-  function Header(currentTemp, conditions) {
+function Header(currentTemp, conditions) {
 
   const curDate = new Date()
   const month = {
